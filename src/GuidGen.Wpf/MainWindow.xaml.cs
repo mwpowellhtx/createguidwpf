@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CreateGuid
+namespace GuidGen
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -62,6 +63,8 @@ static const GUID <<name>> =
         internal static object[] GetEnumeratedParts(this Guid aGuid, TextCase testCase)
         {
             var bytes = aGuid.ToByteArray();
+            //By virtue of the fact we are working with Guid this should be the case but check anyway.
+            Debug.Assert(bytes.Length == 16);
             return new object[]
             {
                 aGuid.ToString("D").ToTextCase(testCase)

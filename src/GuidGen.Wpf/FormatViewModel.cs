@@ -1,6 +1,6 @@
 using System;
 
-namespace CreateGuid
+namespace GuidGen
 {
     //TODO: format view model could be more of a 'command pattern' extension than a true 'view model' per se...
     public class FormatViewModel : ViewModelBase

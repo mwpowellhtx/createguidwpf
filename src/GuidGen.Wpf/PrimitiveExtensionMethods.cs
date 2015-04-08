@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace CreateGuid
+namespace GuidGen
 {
     public static class PrimitiveExtensionMethods
     {
-        public static string ToHexString(this IEnumerable<byte> bytes, bool lowerCase = true)
+        public static string ToHexString(this IEnumerable<byte> bytes)
         {
-            var result = bytes.Select(b => b.ToString("X02")).Aggregate("", (s, c) => s + c);
-            return lowerCase ? result.ToLower() : result.ToUpper();
+            return bytes.Select(b => b.ToString("X02")).Aggregate("", (s, c) => s + c);
         }
     }
 }

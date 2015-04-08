@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CreateGUID.Wpf")]
+[assembly: AssemblyTitle("GuidGen.Wpf")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CreateGUID.Wpf")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("GuidGen.Wpf")]
+[assembly: AssemblyCopyright("Copyright © 2015 Kingdom Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

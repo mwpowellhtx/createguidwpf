@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace CreateGuid
+namespace GuidGen
 {
     public class DelegateCommand : ICommand
     {

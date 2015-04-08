@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CreateGuid
+namespace GuidGen
 {
     //TODO: SOLID principles dictate that this could probably be decoupled a bit further, data from view model, command patterns, and so on, but this will get the job done for now...
     public class GeneratorViewModel : ViewModelBase

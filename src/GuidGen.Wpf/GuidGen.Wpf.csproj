@@ -7,7 +7,7 @@
     <ProjectGuid>{D958BD1F-3B59-440C-BDC9-6C7DAFB0F089}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CreateGUID</RootNamespace>
+    <RootNamespace>GuidGen</RootNamespace>
     <AssemblyName>GuidGen.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -67,7 +67,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="FormatHelper.cs" />
     <Compile Include="FormatViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

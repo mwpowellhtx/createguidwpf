@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CreateGuid
+namespace GuidGen
 {
     //TODO: 'TextCase' could well be captured in an 'options' class
     public enum TextCase

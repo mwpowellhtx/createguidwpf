@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIDGEN.Wpf", "CreateGUID.Wpf\GUIDGEN.Wpf.csproj", "{D958BD1F-3B59-440C-BDC9-6C7DAFB0F089}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidGen.Wpf", "GuidGen.Wpf\GuidGen.Wpf.csproj", "{D958BD1F-3B59-440C-BDC9-6C7DAFB0F089}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

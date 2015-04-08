@@ -1,4 +1,4 @@
-﻿<Window x:Class="CreateGuid.MainWindow"
+﻿<Window x:Class="GuidGen.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Advanced Create GUID" Height="350" Width="525" Icon="Gear.ico">

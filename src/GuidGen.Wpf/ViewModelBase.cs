@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CreateGuid
+namespace GuidGen
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
