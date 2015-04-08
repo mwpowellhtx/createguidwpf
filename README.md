@@ -26,6 +26,11 @@ There are a million different ways those details could be injected, plugged into
 into the generator view models, but for simplicity sake, I am keeping it simple for now. I think it
 serves as a pretty good example of some fairly introductory concepts of the WPF and MVVM architectures.
 
+I even went so far as to download the
+[Visual Studio Image Library](http://www.microsoft.com/en-us/download/details.aspx?id=35825) and connect
+one of its images to give the app a little better look and feel than the vanilla WPF style. Nothing fancy
+there, just an icon, for both the app executable file and the MainWindow.
+
 Feedback, comments, etc are welcome and appreciated.
 
 Thank you.
