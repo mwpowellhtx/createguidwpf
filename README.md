@@ -18,8 +18,9 @@ with the traditional version, copy that to the Clipboard, except adding a few. N
 
 MVVM enters the picture in the sense that it also leverages model binding goodness, even two-way
 binding for selecting the desired format. Data bound results are displayed upon selection. Really
-quite simple, and demonstrates how a ListView may be bound to a View Model, and how that gets
-automatically updated.
+quite simple, and demonstrates how a
+[ListView](https://msdn.microsoft.com/en-us/library/system.windows.controls.listview.aspx) may be
+bound to a View Model, and how that gets automatically updated.
 
 There are a million different ways those details could be injected into the generator view models,
 but for simplicity sake, I am keeping it simple for now. I think it serves as a pretty good example
