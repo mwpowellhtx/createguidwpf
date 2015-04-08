@@ -2,8 +2,9 @@
 
 If you have been around the Microsoft development stacks for any length of time, especially
 hearkening back to the good old days of ActiveX, then you are undoubtedly familiar with the
-stand by utility, GUIDGEN. Typically you can find it lurking in the bowels of your favorite
-version of Visual Studio, I believe it also distributes with the Platform SDKs, and so on.
+stand by utility, [GUIDGEN](http://msdn.microsoft.com/en-us/library/kw069h38.aspx).
+Typically you can find it lurking in the bowels of your favorite version of Visual Studio,
+I believe it also distributes with the Platform SDKs, and so on.
 
 Well, recently , I found that I wanted to generate some GUIDs. Do not ask me why. I just did.
 And I needed a version of GUIDGEN to support a couple of different flavors that were not there
