@@ -51,7 +51,9 @@ static const GUID <<name>> =
                     new FormatViewModel(@"<Guid(""xxxxxxxx-xxxx ... xxxx"")>",
                         (x, c) => string.Format(@"<Guid(""{0}"")>", x.ToString("D").ToUpper()).ToTextCase(c)),
                     new FormatViewModel(@"Digits", (x, c) => x.ToString("N").ToTextCase(c)),
-                    new FormatViewModel(@"Hypens", (x, c) => x.ToString("D").ToTextCase(c))
+                    new FormatViewModel(@"Hypens", (x, c) => x.ToString("D").ToTextCase(c)),
+                    new FormatViewModel(@"Braces", (x, c) => x.ToString("B").ToTextCase(c)),
+                    new FormatViewModel(@"Parentheses", (x, c) => x.ToString("P").ToTextCase(c))
                 });
 
             DataContext = options;
