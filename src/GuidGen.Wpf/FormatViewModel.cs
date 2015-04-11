@@ -19,7 +19,12 @@ namespace GuidGen
             set
             {
                 if (_selected == value) return;
+
                 _selected = value;
+
+                if (_selected)
+                    _options.SelectedFormat = this;
+
                 RaisePropertyChanged();
             }
         }
@@ -47,31 +52,58 @@ namespace GuidGen
         }
 
         /// <summary>
+        /// Options backing field.
+        /// </summary>
+        private readonly IGeneratorOptions _options;
+
+        /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="options"></param>
         /// <param name="baseDisplayName"></param>
         /// <param name="formatter"></param>
-        public FormatViewModel(string baseDisplayName, Func<Guid, TextCase, string> formatter)
+        public FormatViewModel(IGeneratorOptions options, string baseDisplayName, Func<Guid, TextCase, string> formatter)
         {
             _baseDisplayName = baseDisplayName;
             _formatter = formatter;
+
+            _options = options;
+
+            //Starting out from the nominal default.
+            FormattedText = _formatter(options.Current, options.Case);
+
+            const StringComparison comparisonType = StringComparison.InvariantCultureIgnoreCase;
+
+            _options.PropertyChanged += (s, e) =>
+            {
+                var propertyName = e.PropertyName;
+
+                if (string.Equals(propertyName, "Current", comparisonType)
+                    || string.Equals(propertyName, "Case", comparisonType))
+                    FormattedText = _formatter(options.Current, options.Case);
+            };
         }
 
         /// <summary>
         /// Formatted backing field.
         /// </summary>
         private readonly Func<Guid, TextCase, string> _formatter;
-
-        //TODO: see if there's not a way for this view model to also 'listen' for changes to a text case elsewhere ... would avoid needing to call anything, be entirely view model driven ...
+        
         /// <summary>
-        /// Performs the <see cref="guid"/> formatting itself.
+        /// FormattedText backing field.
         /// </summary>
-        /// <param name="guid"></param>
-        /// <param name="textCase"></param>
-        /// <returns></returns>
-        public string Perform(Guid guid, TextCase textCase)
+        private string _formattedText;
+
+        //TODO: does this even need to be a getter/setter? seems like probably not, as long as there are connection with the underlying options...
+        public string FormattedText
         {
-            return _formatter(guid, textCase);
+            get { return _formattedText; }
+            set
+            {
+                if (string.Equals(_formattedText, value)) return;
+                _formattedText = value;
+                RaisePropertyChanged();
+            }
         }
     }
 }
