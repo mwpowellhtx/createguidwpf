@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -23,40 +24,52 @@ namespace GuidGen
             InitializeComponent();
 
             //TODO: may store and retrieve the options settings from a registry value ...
-            var options = new GeneratorViewModel(
-                new[]
-                {
-                    new FormatViewModel("IMPLEMENT_OLECREATE(...)",
-                        (x, c) =>
-                            string.Format(@"// {0}
-IMPLEMENT_OLECREATE(<<class>>, <<external_name>>, 
-0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
-                                x.GetEnumeratedParts(c))),
-                    new FormatViewModel("DEFINE_GUID(...)",
-                        (x, c) =>
-                            string.Format(@"// {0}
-DEFINE_GUID(<<name>>, 
-0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
-                                x.GetEnumeratedParts(c))),
-                    new FormatViewModel("static const struct GUID = { ... }",
-                        (x, c) =>
-                            string.Format(@"// {0}
-static const GUID <<name>> = 
-{{ 0x{1}, 0x{2}, 0x{3}, {{ 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11} }} }};",
-                                x.GetEnumeratedParts(c))),
-                    new FormatViewModel(@"Registry Format (ie. {{xxxxxxxx-xxxx ... xxxx }})",
-                        (x, c) => x.ToString("B").ToTextCase(c)),
-                    new FormatViewModel(@"[Guid(""xxxxxxxx-xxxx ... xxxx"")]",
-                        (x, c) => string.Format(@"[Guid(""{0}"")]", x.ToString("D").ToUpper()).ToTextCase(c)),
-                    new FormatViewModel(@"<Guid(""xxxxxxxx-xxxx ... xxxx"")>",
-                        (x, c) => string.Format(@"<Guid(""{0}"")>", x.ToString("D").ToUpper()).ToTextCase(c)),
-                    new FormatViewModel(@"Digits", (x, c) => x.ToString("N").ToTextCase(c)),
-                    new FormatViewModel(@"Hypens", (x, c) => x.ToString("D").ToTextCase(c)),
-                    new FormatViewModel(@"Braces", (x, c) => x.ToString("B").ToTextCase(c)),
-                    new FormatViewModel(@"Parentheses", (x, c) => x.ToString("P").ToTextCase(c))
-                });
+            var options = new GeneratorViewModel(GetFormats().ToArray());
 
             DataContext = options;
+        }
+
+        private static IEnumerable<FormatViewModel> GetFormats()
+        {
+            //TODO: TBD: from here's it's not far to drop it in as a VERY loosely coupled resource in App, MainWindow, etc
+
+            yield return new FormatViewModel("IMPLEMENT_OLECREATE(...)",
+                (x, c) =>
+                    string.Format(@"// {0}
+IMPLEMENT_OLECREATE(<<class>>, <<external_name>>, 
+0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
+                        x.GetEnumeratedParts(c)));
+
+            yield return new FormatViewModel("DEFINE_GUID(...)",
+                (x, c) =>
+                    string.Format(@"// {0}
+DEFINE_GUID(<<name>>, 
+0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
+                        x.GetEnumeratedParts(c)));
+
+            yield return new FormatViewModel("static const struct GUID = { ... }",
+                (x, c) =>
+                    string.Format(@"// {0}
+static const GUID <<name>> = 
+{{ 0x{1}, 0x{2}, 0x{3}, {{ 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11} }} }};",
+                        x.GetEnumeratedParts(c)));
+
+            yield return new FormatViewModel(@"Registry Format (ie. {{xxxxxxxx-xxxx ... xxxx }})",
+                (x, c) => x.ToString("B").ToTextCase(c));
+
+            yield return new FormatViewModel(@"[Guid(""xxxxxxxx-xxxx ... xxxx"")]",
+                (x, c) => string.Format(@"[Guid(""{0}"")]", x.ToString("D").ToTextCase(c)));
+
+            yield return new FormatViewModel(@"<Guid(""xxxxxxxx-xxxx ... xxxx"")>",
+                (x, c) => string.Format(@"<Guid(""{0}"")>", x.ToString("D").ToTextCase(c)));
+
+            yield return new FormatViewModel(@"Digits", (x, c) => x.ToString("N").ToTextCase(c));
+
+            yield return new FormatViewModel(@"Hypens", (x, c) => x.ToString("D").ToTextCase(c));
+
+            yield return new FormatViewModel(@"Braces", (x, c) => x.ToString("B").ToTextCase(c));
+
+            yield return new FormatViewModel(@"Parentheses", (x, c) => x.ToString("P").ToTextCase(c));
         }
     }
 

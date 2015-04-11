@@ -62,6 +62,7 @@ namespace GuidGen
         /// </summary>
         private readonly Func<Guid, TextCase, string> _formatter;
 
+        //TODO: see if there's not a way for this view model to also 'listen' for changes to a text case elsewhere ... would avoid needing to call anything, be entirely view model driven ...
         /// <summary>
         /// Performs the <see cref="guid"/> formatting itself.
         /// </summary>

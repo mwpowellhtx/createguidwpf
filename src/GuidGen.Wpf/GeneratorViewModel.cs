@@ -22,7 +22,7 @@ namespace GuidGen
                 if (_current == value) return;
                 _current = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged(@"Formats");
+                RaisePropertyChanged("Formats");
                 RaisePropertyChanged("SelectedResult");
             }
         }
@@ -79,21 +79,21 @@ namespace GuidGen
             New();
 
             _textCase = TextCase.Lower;
+
+            //No need to evaluate the listed formats twice.
             _formats = formats.ToList();
 
             var number = 0;
 
-            _formats.ToList()
-                .ForEach(x =>
-                {
-                    x.Number = ++number;
-                    x.PropertyChanged += (s, e) =>
-                    {
-                        if (!ReferenceEquals(s, x)) return;
-                        RaisePropertyChanged("SelectedResult");
-                    };
-                });
+            //The good 'old' foreach loop still has its place.
+            foreach (var f in _formats)
+            {
+                f.Number = ++number;
+                //TODO: TBD: could potentially get fancier with the PC event, but does not seem to be necessary
+                f.PropertyChanged += (s, e) => RaisePropertyChanged("SelectedResult");
+            }
         }
+
 
         private ICommand _newCommand;
 
@@ -152,6 +152,7 @@ namespace GuidGen
 
         public void Copy()
         {
+            //TODO: which would then also potentially be allowing the view model to present itself for copy to the clipboard without needing to call any methods
             var selected = Formats.FirstOrDefault(x => x.IsSelected);
             if (selected == null) return;
             Clipboard.SetText(selected.Perform(Current, _textCase));
