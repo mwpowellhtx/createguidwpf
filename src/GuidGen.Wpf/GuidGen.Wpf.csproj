@@ -56,6 +56,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DisplayOrderAttribute.cs" />
+    <Compile Include="Formats\_2_CPlusPlusDefineGuidFormatViewModel.cs" />
+    <Compile Include="Formats\_1_CPlusPlusImplementOleCreateFormatViewModel.cs" />
+    <Compile Include="Formats\_3_CPlusPlusStaticConstStructFormatViewModel.cs" />
+    <Compile Include="Formats\_4_RegistryFormatViewModel.cs" />
+    <Compile Include="Formats\_6_VisualBasicDotNetGuidAttributeFormatViewModel.cs" />
+    <Compile Include="Formats\_9_CurlyBracesFormatViewModel.cs" />
+    <Compile Include="Formats\_8_DigitsFormatViewModel.cs" />
+    <Compile Include="Formats\_7_HyphensFormatViewModel.cs" />
+    <Compile Include="Formats\_10_ParenthesesFormatViewModel.cs" />
+    <Compile Include="Formats\_5_CSharpGuidAttributeFormatViewModel.cs" />
+    <Compile Include="IFormat.cs" />
     <Compile Include="IGeneratorOptions.cs" />
     <Compile Include="TextCase.cs" />
     <Compile Include="ViewModelBase.cs" />

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
@@ -74,12 +75,12 @@ namespace GuidGen
         /// <summary>
         /// Formats backing field.
         /// </summary>
-        private readonly IEnumerable<FormatViewModel> _formats;
+        private readonly IEnumerable<IFormat> _formats;
 
         /// <summary>
         /// Gets the Formats for use by the generator. This is the rest of the view model.
         /// </summary>
-        public IEnumerable<FormatViewModel> Formats
+        public IEnumerable<IFormat> Formats
         {
             get { return _formats; }
         }
@@ -129,7 +130,6 @@ namespace GuidGen
                 f.PropertyChanged += (s, e) => RaisePropertyChanged("SelectedResult");
             }
         }
-
 
         private ICommand _newCommand;
 
@@ -193,49 +193,29 @@ namespace GuidGen
             Clipboard.SetText(SelectedFormat.FormattedText);
         }
 
-        private static IEnumerable<FormatViewModel> GetFormats(GeneratorViewModel generatorViewModel)
+        private static IEnumerable<IFormat> GetFormats(IGeneratorOptions options)
         {
-            var __this = generatorViewModel;
-
             //TODO: TBD: from here's it's not far to drop it in as a VERY loosely coupled resource in App, MainWindow, etc
+            var interfaceType = typeof (IFormat);
 
-            yield return new FormatViewModel(__this, "IMPLEMENT_OLECREATE(...)",
-                (x, c) =>
-                    string.Format(@"// {0}
-IMPLEMENT_OLECREATE(<<class>>, <<external_name>>, 
-0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
-                        x.GetEnumeratedParts(c)));
+            var assemblyTypes = interfaceType.Assembly.GetTypes().ToArray();
 
-            yield return new FormatViewModel(__this, "DEFINE_GUID(...)",
-                (x, c) =>
-                    string.Format(@"// {0}
-DEFINE_GUID(<<name>>, 
-0x{1}, 0x{2}, 0x{3}, 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11});",
-                        x.GetEnumeratedParts(c)));
+            var viewModelTypes = assemblyTypes.Where(
+                t => t.IsPublic && t.IsClass && !t.IsAbstract
+                     && interfaceType.IsAssignableFrom(t))
+                .OrderBy(t => t.GetDisplayOrder().Order)
+                .ToArray();
 
-            yield return new FormatViewModel(__this, "static const struct GUID = { ... }",
-                (x, c) =>
-                    string.Format(@"// {0}
-static const GUID <<name>> = 
-{{ 0x{1}, 0x{2}, 0x{3}, {{ 0x{4}, 0x{5}, 0x{6}, 0x{7}, 0x{8}, 0x{9}, 0x{10}, 0x{11} }} }};",
-                        x.GetEnumeratedParts(c)));
+            var formatters = viewModelTypes.Select(t =>
+            {
+                var ctor = t.GetConstructor(new[] {typeof (IGeneratorOptions)});
+                Debug.Assert(ctor != null);
+                var instance = ctor.Invoke(new object[] {options});
+                Debug.Assert(instance != null);
+                return (IFormat) instance;
+            });
 
-            yield return new FormatViewModel(__this, @"Registry Format (ie. {{xxxxxxxx-xxxx ... xxxx }})",
-                (x, c) => x.ToString("B").ToTextCase(c));
-
-            yield return new FormatViewModel(__this, @"[Guid(""xxxxxxxx-xxxx ... xxxx"")]",
-                (x, c) => string.Format(@"[Guid(""{0}"")]", x.ToString("D").ToTextCase(c)));
-
-            yield return new FormatViewModel(__this, @"<Guid(""xxxxxxxx-xxxx ... xxxx"")>",
-                (x, c) => string.Format(@"<Guid(""{0}"")>", x.ToString("D").ToTextCase(c)));
-
-            yield return new FormatViewModel(__this, @"Digits", (x, c) => x.ToString("N").ToTextCase(c));
-
-            yield return new FormatViewModel(__this, @"Hypens", (x, c) => x.ToString("D").ToTextCase(c));
-
-            yield return new FormatViewModel(__this, @"Braces", (x, c) => x.ToString("B").ToTextCase(c));
-
-            yield return new FormatViewModel(__this, @"Parentheses", (x, c) => x.ToString("P").ToTextCase(c));
+            return formatters;
         }
     }
 }

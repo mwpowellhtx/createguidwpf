@@ -3,7 +3,7 @@ using System;
 namespace GuidGen
 {
     //TODO: format view model could be more of a 'command pattern' extension than a true 'view model' per se...
-    public class FormatViewModel : ViewModelBase
+    public abstract class FormatViewModel : ViewModelBase, IFormat
     {
         /// <summary>
         /// IsSelected backing field.
