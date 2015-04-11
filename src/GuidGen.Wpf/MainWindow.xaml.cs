@@ -15,7 +15,11 @@ namespace GuidGen
 
         public ICommand ExitCommand
         {
-            get { return _exitCommand ?? (_exitCommand = new DelegateCommand(x => Close(), x => true)); }
+            get
+            {
+                return _exitCommand
+                       ?? (_exitCommand = new DelegateCommand(x => Close(), x => true));
+            }
         }
 
         public MainWindow()
@@ -31,24 +35,32 @@ namespace GuidGen
     {
         internal static object[] GetEnumeratedParts(this Guid aGuid, TextCase testCase)
         {
+            //Spec out the parts that should be enumerated.
+            var pairs = new[]
+            {
+                new {SkipCount = 0, TakeCount = 4},
+                new {SkipCount = 4, TakeCount = 2},
+                new {SkipCount = 6, TakeCount = 2},
+                new {SkipCount = 8, TakeCount = 1},
+                new {SkipCount = 9, TakeCount = 1},
+                new {SkipCount = 10, TakeCount = 1},
+                new {SkipCount = 11, TakeCount = 1},
+                new {SkipCount = 12, TakeCount = 1},
+                new {SkipCount = 13, TakeCount = 1},
+                new {SkipCount = 14, TakeCount = 1},
+                new {SkipCount = 15, TakeCount = 1},
+            };
+
             var bytes = aGuid.ToByteArray();
+
             //By virtue of the fact we are working with Guid this should be the case but check anyway.
             Debug.Assert(bytes.Length == 16);
-            return new object[]
-            {
-                aGuid.ToString("D").ToTextCase(testCase)
-                , bytes.Take(4).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(4).Take(2).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(6).Take(2).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(8).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(9).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(10).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(11).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(12).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(13).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(14).Take(1).ToHexString().ToTextCase(testCase)
-                , bytes.Skip(15).ToHexString().ToTextCase(testCase)
-            };
+
+            var theParts = pairs.Select(x => bytes.Skip(x.SkipCount)
+                .Take(x.TakeCount).ToHexString().ToTextCase(testCase));
+
+            return new object[] {aGuid.ToString("D").ToTextCase(testCase)}
+                .Concat(theParts).ToArray();
         }
     }
 }
