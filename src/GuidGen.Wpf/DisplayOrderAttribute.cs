@@ -16,14 +16,16 @@ namespace GuidGen
 
     internal static class DisplayOrderExtensionMethods
     {
-        internal static DisplayOrderAttribute GetDisplayOrder(this Type type)
+        internal static DisplayOrderAttribute GetDisplayOrder<TFormat>(this TFormat format)
+            where TFormat : class, IFormat
         {
             DisplayOrderAttribute result;
+            var formatType = typeof (TFormat);
             try
             {
-                result = (type == null || !type.IsClass)
+                result = (!(formatType.IsClass || formatType.IsAbstract))
                     ? null
-                    : type.GetCustomAttribute<DisplayOrderAttribute>();
+                    : formatType.GetCustomAttribute<DisplayOrderAttribute>();
             }
             catch (Exception)
             {

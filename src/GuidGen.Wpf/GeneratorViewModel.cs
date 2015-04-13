@@ -200,10 +200,10 @@ namespace GuidGen
 
             var assemblyTypes = interfaceType.Assembly.GetTypes().ToArray();
 
+            //Do not order the types themselves.
             var viewModelTypes = assemblyTypes.Where(
                 t => t.IsPublic && t.IsClass && !t.IsAbstract
                      && interfaceType.IsAssignableFrom(t))
-                .OrderBy(t => t.GetDisplayOrder().Order)
                 .ToArray();
 
             var formatters = viewModelTypes.Select(t =>
@@ -215,7 +215,14 @@ namespace GuidGen
                 return (IFormat) instance;
             });
 
-            return formatters;
+            /* Instead order the formatter instances. That'll work pretty well. Actually,
+             * I'm kind of surprised that the extension method works here, considering there
+             * is a Generic Constraint on its TFormat, wanting a class that implements IFormat,
+             * not just the simple IFormat, per se. I'm not saying 'no', just surprised, is all. */
+
+            var ordered = formatters.OrderBy(f => f.GetDisplayOrder().Order).ToArray();
+
+            return ordered;
         }
     }
 }
