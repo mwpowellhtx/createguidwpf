@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace GuidGen
@@ -21,6 +22,7 @@ namespace GuidGen
         {
             DisplayOrderAttribute result;
             var formatType = typeof (TFormat);
+            Debug.Assert(format != null);
             try
             {
                 //Expecting a class, not the interface, and not abstract, must be concrete implementation.
