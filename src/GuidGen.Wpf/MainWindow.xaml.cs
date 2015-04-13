@@ -25,9 +25,6 @@ namespace GuidGen
         public MainWindow()
         {
             InitializeComponent();
-
-            //TODO: short of seeing this in an honest to goodness resource, this is getting better...
-            DataContext = new GeneratorViewModel();
         }
     }
 
