@@ -35,7 +35,7 @@ I finally decided to move forward with the plugin idea. I added an interface,
 [IFormat](http://github.com/mwpowellhtx/guidgenwpf/blob/master/src/GuidGen.Wpf/IFormat.cs), that the
 formats all implement. Which leaves each format plugin being a fairly simple class. Actually 'stupidly'
 so. All that needs to be specified, basically, is a name and a formatter/handler. Oh, and the plugins also
-need to be aware of the [IGeneratorOption](http://github.com/mwpowellhtx/guidgenwpf/blob/master/src/GuidGen.Wpf/IGeneratorOptions.cs).
+need to be aware of the [IGeneratorOptions](http://github.com/mwpowellhtx/guidgenwpf/blob/master/src/GuidGen.Wpf/IGeneratorOptions.cs).
 
 With this approach, it 'created' another opportunity: to sort the instances according to desired order.
 This was previously done by declaratively specifying each instantiation. Again, could do this a hundred
