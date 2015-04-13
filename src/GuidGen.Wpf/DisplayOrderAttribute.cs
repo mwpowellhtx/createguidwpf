@@ -23,7 +23,8 @@ namespace GuidGen
             var formatType = typeof (TFormat);
             try
             {
-                result = (!(formatType.IsClass || formatType.IsAbstract))
+                //Expecting a class, not the interface, and not abstract, must be concrete implementation.
+                result = (!formatType.IsClass || formatType.IsAbstract || formatType.IsInterface)
                     ? null
                     : formatType.GetCustomAttribute<DisplayOrderAttribute>();
             }
