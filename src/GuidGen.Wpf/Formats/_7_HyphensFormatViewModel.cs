@@ -2,7 +2,7 @@
 
 namespace GuidGen.Formats
 {
-    [DisplayOrder(8)]
+    [DisplayOrder(7)]
     public class HyphensFormatViewModel : FormatViewModel
     {
         private static string Formatter(Guid value, TextCase textCase)
