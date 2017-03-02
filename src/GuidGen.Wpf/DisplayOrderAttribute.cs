@@ -4,7 +4,9 @@ using System.Reflection;
 
 namespace GuidGen
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    using static AttributeTargets;
+
+    [AttributeUsage(Class, Inherited = false)]
     public class DisplayOrderAttribute : Attribute
     {
         public int Order { get; private set; }
