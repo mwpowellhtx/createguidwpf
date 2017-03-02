@@ -6,9 +6,7 @@ namespace GuidGen.Formats
     public class DigitsFormatViewModel : FormatViewModel
     {
         private static string Formatter(Guid value, TextCase testCase)
-        {
-            return value.ToString("N").ToTextCase(testCase);
-        }
+            => $"{value:N}".ToTextCase(testCase);
 
         public DigitsFormatViewModel(IGeneratorOptions options)
             : base(options, "Digits", Formatter)

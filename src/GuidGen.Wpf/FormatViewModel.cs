@@ -42,14 +42,8 @@ namespace GuidGen
         /// <summary>
         /// Gets the DisplayName for use with the rest of the view model.
         /// </summary>
-        public string DisplayName
-        {
-            get
-            {
-                //Remember to format with gesture keys equipped and ready for action.
-                return string.Format("_{0}: {1}", Number, _baseDisplayName);
-            }
-        }
+        /// <remarks>Remember to format with gesture keys equipped and ready for action.</remarks>
+        public string DisplayName => $"_{Number}: {_baseDisplayName}";
 
         /// <summary>
         /// Options backing field.

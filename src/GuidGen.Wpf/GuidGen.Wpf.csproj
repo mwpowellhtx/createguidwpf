@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DisplayOrderAttribute.cs" />
+    <Compile Include="Formats\_11_CSharpAssemblyGuidAttributeFormatViewModel.cs" />
     <Compile Include="Formats\_2_CPlusPlusDefineGuidFormatViewModel.cs" />
     <Compile Include="Formats\_1_CPlusPlusImplementOleCreateFormatViewModel.cs" />
     <Compile Include="Formats\_3_CPlusPlusStaticConstStructFormatViewModel.cs" />

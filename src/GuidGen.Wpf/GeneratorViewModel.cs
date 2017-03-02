@@ -73,39 +73,20 @@ namespace GuidGen
         #endregion
 
         /// <summary>
-        /// Formats backing field.
-        /// </summary>
-        private readonly IEnumerable<IFormat> _formats;
-
-        /// <summary>
         /// Gets the Formats for use by the generator. This is the rest of the view model.
         /// </summary>
-        public IEnumerable<IFormat> Formats
-        {
-            get { return _formats; }
-        }
+        public IEnumerable<IFormat> Formats { get; }
 
         /// <summary>
         /// Gets the SelectedResult for display purposes.
         /// This illustrates the power and flexibility of a loosely coupled MVVM.
         /// </summary>
-        public string SelectedResult
-        {
-            get
-            {
-                /* And preclude any inadvertent accelerator keys from appearing in the formatted result.
-                 * As well as any need whatsoever to call methods on the view model. */
-                return SelectedFormat == null ? string.Empty : SelectedFormat.FormattedText.Replace("_", "__");
-            }
-        }
+        public string SelectedResult => SelectedFormat?.FormattedText.Replace("_", "__") ?? string.Empty;
 
         /// <summary>
         /// Gets the ResultHeader based on the <see cref="Case"/>.
         /// </summary>
-        public string ResultHeader
-        {
-            get { return string.Format("Result ({0})", Case.GetResultHeaderText()); }
-        }
+        public string ResultHeader => $"Result ({Case.GetResultHeaderText()})";
 
         /// <summary>
         /// Default Constructor
@@ -118,12 +99,12 @@ namespace GuidGen
             Case = TextCase.Lower;
 
             //No need to evaluate the listed formats twice.
-            _formats = GetFormats(this).ToList();
+            Formats = GetFormats(this).ToList();
 
             var number = 0;
 
             //The good 'old' foreach loop still has its place.
-            foreach (var f in _formats)
+            foreach (var f in Formats)
             {
                 f.Number = ++number;
                 //TODO: TBD: could potentially get fancier with the PC event, but does not seem to be necessary

@@ -6,9 +6,7 @@ namespace GuidGen.Formats
     public class HyphensFormatViewModel : FormatViewModel
     {
         private static string Formatter(Guid value, TextCase textCase)
-        {
-            return value.ToString("D").ToTextCase(textCase);
-        }
+            => $"{value:D}".ToTextCase(textCase);
 
         public HyphensFormatViewModel(IGeneratorOptions options)
             : base(options, @"Hypens", Formatter)

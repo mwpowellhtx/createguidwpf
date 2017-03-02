@@ -6,9 +6,7 @@ namespace GuidGen.Formats
     public class ParenthesesFormatViewModel : FormatViewModel
     {
         private static string Formatter(Guid value, TextCase textCase)
-        {
-            return value.ToString("P").ToTextCase(textCase);
-        }
+            => $@"{value:P}".ToTextCase(textCase);
 
         public ParenthesesFormatViewModel(IGeneratorOptions options)
             : base(options, @"Parentheses", Formatter)
