@@ -1,4 +1,7 @@
 bin/
 obj/
+
+_ReSharper.Caches/
+
 *.suo
 *.user
