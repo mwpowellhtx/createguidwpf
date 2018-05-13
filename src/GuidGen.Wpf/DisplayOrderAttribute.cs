@@ -23,14 +23,12 @@ namespace GuidGen
             where TFormat : class, IFormat
         {
             DisplayOrderAttribute result;
-            var formatType = typeof (TFormat);
+            var formatType = format?.GetType() ?? typeof(IFormat);
             Debug.Assert(format != null);
             try
             {
-                //Expecting a class, not the interface, and not abstract, must be concrete implementation.
-                result = (!formatType.IsClass || formatType.IsAbstract || formatType.IsInterface)
-                    ? null
-                    : formatType.GetCustomAttribute<DisplayOrderAttribute>();
+                // Expecting a class, not the interface, and not abstract, must be concrete implementation.
+                result = formatType.GetCustomAttribute<DisplayOrderAttribute>();
             }
             catch (Exception)
             {
